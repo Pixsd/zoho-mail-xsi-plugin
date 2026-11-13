@@ -56,9 +56,11 @@ def check(client, since, cursor='', max_pages=4):
             c.CALL_STATE.deadline = deadline
             try:
                 for _ in range(max_pages):
+                    # Do not set includearchive: live Zoho checks returned HTTP 200
+                    # with no ordinary mail when it was true. Archive coverage is unverified.
                     data = client.api('GET', client.owned(aid) + '/messages/view', params={
                         'folderId': fid, 'start': start, 'limit': 50, 'sortBy': 'date',
-                        'sortorder': 'false', 'includeto': 'true', 'includesent': 'true', 'includearchive': 'true'}).get('data')
+                        'sortorder': 'false', 'includeto': 'true', 'includesent': 'true'}).get('data')
                     if not isinstance(data, list):
                         raise c.SafeError('Invalid messages response.')
                     reached = False

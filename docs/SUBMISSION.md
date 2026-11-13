@@ -37,7 +37,9 @@ Clone the repository on the Bot's computer. Follow README installation and OAuth
 - [ ] Install this exact release on Grok Bot's computer.
 - [ ] Complete OAuth against a reviewer/user-owned test mailbox.
 - [ ] Verify cold start, tool discovery and a normal single-call mail check.
-- [ ] Verify Inbox, custom folders, archived mail, Spam/Trash and Sent coverage against Zoho UI.
+- [ ] Verify Inbox, custom folders, Spam/Trash and Sent coverage against Zoho UI.
+- [ ] Investigate archived-message coverage separately; version 0.1.1 does not claim it.
+- [ ] Re-run the reported 11-message interval after upgrading, with no old cursor or watermark; confirm all three Inbox notices and eight Sent messages.
 - [ ] Verify multiple pages/continuation, timestamp boundary and daylight saving examples.
 - [ ] Compare live timing before/after; record sample size, mailbox size and cold/warm token state. No speed claim is made yet.
 - [ ] Confirm diagnostics on an intentional test failure and responsiveness of discovery/ping.

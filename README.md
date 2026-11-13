@@ -83,6 +83,12 @@ The launcher locates its adjacent `.venv` regardless of the host working directo
 
 The plugin manifests and MCP entries use the respective plugin-root variable. Install dependencies in the **installed plugin directory**, then configure the external data directory once. Restart the host after setup. The default launcher uses `python3` from PATH; command-only registration above also allows an absolute interpreter path. In-app plugin-cache installation has not yet been acceptance-tested; do not claim one-click onboarding.
 
+## Upgrading from 0.1.0
+
+Version 0.1.1 removes `includearchive=true`, which produced false empty results in a live mailbox test. After updating, restart the MCP process. Run a fresh `check_new_mail` without a cursor, using the start of the affected interval or the last known-good check as `since`; deduplicate previously seen IDs. Do not reuse a watermark advanced by the faulty empty scan. Keep the old connector active until the new result agrees with folder listings in your live mailbox.
+
+Archived messages are not guaranteed by this patch. It checks folders using the ordinary message-list API without the archive flag; verify archive handling separately before relying on it.
+
 ## Usage
 
 ```json

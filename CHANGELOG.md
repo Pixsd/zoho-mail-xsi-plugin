@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1
+
+- Omit `includearchive=true` from per-folder mail checks. The live report showed that this flag made Zoho return HTTP 200 with empty results for folders containing ordinary messages, causing false complete/empty scans.
+- Add regression coverage reproducing that response behavior: three Inbox delivery delays and eight Sent messages must match ordinary folder listing. Preserve legitimate empty-folder completion.
+- Treat archived-message coverage as unverified. Do not interpret this workaround as verified inclusion of archived mail.
+- After upgrading, start a fresh scan without an old cursor, from the last known-good check (or earlier), and deduplicate IDs. A watermark from a faulty empty scan must not skip the affected interval.
+
 ## 0.1.0
 
 - Package the original private connector as `zoho-mail-xsi-plugin` with reusable mailbox/region configuration.
