@@ -1,0 +1,17 @@
+{
+  "name": "zoho-mail-xsi-plugin",
+  "version": "0.1.0",
+  "description": "Zoho Mail MCP connector: cross-folder mail checks, Rome timestamps and bounded network calls.",
+  "author": {
+    "name": "Pixsd"
+  },
+  "repository": "https://github.com/Pixsd/zoho-mail-xsi-plugin",
+  "license": "MIT",
+  "keywords": [
+    "zoho",
+    "mail",
+    "mcp",
+    "grok-bot"
+  ],
+  "logo": "assets/logo.svg"
+}

@@ -1,0 +1,9 @@
+[project]
+name = "zoho-mail-xsi-plugin"
+version = "0.1.0"
+description = "Local Zoho Mail MCP connector for Grok Bot"
+requires-python = ">=3.11"
+dependencies = ["mcp==1.30.0", "httpx==0.28.1", "anyio==4.16.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
