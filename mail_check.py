@@ -9,8 +9,11 @@ from zoneinfo import ZoneInfo
 
 
 def delivery_notice(row):
-    combined = (str(row.get('subject', '')) + '\n' + str(row.get('summary', ''))).lower()
-    delayed = any(x in combined for x in ('delivery delayed', 'delivery delay', 'delayed delivery', 'ritardo di consegna'))
+    subject = str(row.get('subject', '')).strip().lower()
+    combined = subject + '\n' + str(row.get('summary', '')).lower()
+    delayed = subject == 'mail delivery status notification (delay)' or any(
+        phrase in combined for phrase in ('delivery delayed', 'delivery delay', 'delayed delivery', 'ritardo di consegna')
+    )
     failed = any(x in combined for x in ('undeliver', 'delivery failure', 'delivery failed', 'failure notice', 'mancata consegna'))
     if not (delayed or failed):
         return None

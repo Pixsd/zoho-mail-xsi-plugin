@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Recognize the subject `Mail Delivery Status Notification (Delay)` as a suspected delivery delay. Add regression coverage for the three notices reported in Inbox.
+
 ## 0.1.1
 
 - Omit `includearchive=true` from per-folder mail checks. The live report showed that this flag made Zoho return HTTP 200 with empty results for folders containing ordinary messages, causing false complete/empty scans.

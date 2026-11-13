@@ -15,7 +15,8 @@ class ArchiveFlagRegression(unittest.TestCase):
         calls = []
         rows = {
             '2': [dict(messageId=str(200 + i), receivedTime=now_ms - 3600000,
-                       fromAddress='postmaster@example.com', subject='Delivery delayed') for i in range(3)],
+                       fromAddress='postmaster@example.com',
+                       subject='Mail Delivery Status Notification (Delay)') for i in range(3)],
             '3': [dict(messageId=str(300 + i), receivedTime=now_ms - 3600000,
                        fromAddress='test@example.com', subject='Proposal') for i in range(8)],
         }
@@ -43,7 +44,13 @@ class ArchiveFlagRegression(unittest.TestCase):
             result = check(client, since)
         self.assertEqual({m['message_id'] for m in result['messages']}, expected)
         self.assertEqual(len(result['messages']), 11)
-        self.assertEqual(sum(m['delivery_notice'] is not None for m in result['messages']), 3)
+        notices = {m['message_id']: m['delivery_notice'] for m in result['messages']
+                   if m['delivery_notice'] is not None}
+        self.assertEqual(set(notices), {'200', '201', '202'})
+        for notice in notices.values():
+            self.assertEqual(notice['kind'], 'delayed')
+            self.assertEqual(notice['confidence'], 'suspected')
+            self.assertEqual(notice['correlation'], 'unresolved')
         self.assertTrue(result['complete'])
         self.assertEqual(result['errors'], [])
         self.assertEqual(result['next_cursor'], '')
